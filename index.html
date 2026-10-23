@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexCraft Studio - Digital Services & Micro-Freelance Marketplace</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0B0F19',
+                            card: '#131A29',
+                            border: '#1E293B',
+                            cyan: '#00F0FF',
+                            purple: '#A855F7',
+                            neonGreen: '#10B981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 20px rgba(0, 240, 255, 0.35)',
+                        'neon-purple': '0 0 20px rgba(168, 85, 247, 0.35)',
+                        'neon-green': '0 0 20px rgba(16, 185, 129, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+        
+        .glass-panel {
+            background: rgba(19, 26, 41, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00F0FF 0%, #A855F7 50%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-border {
+            position: relative;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(168, 85, 247, 0.2));
+            padding: 1px;
+        }
+
+        .animated-bg {
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-slate-100 font-sans antialiased selection:bg-brand-cyan selection:text-slate-900 min-h-screen flex flex-col justify-between">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-brand-border/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-cyan to-brand-purple flex items-center justify-center text-slate-950 font-black text-xl shadow-neon-cyan group-hover:scale-105 transition-transform duration-300">
+                    N
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-wider font-mono">NEX<span class="gradient-text">CRAFT</span></span>
+                    <span class="block text-[10px] text-slate-400 font-mono tracking-widest uppercase -mt-1">Digital Services</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#services" class="hover:text-brand-cyan transition-colors">Services</a>
+                <a href="#calculator" class="hover:text-brand-purple transition-colors">Pricing Calculator</a>
+                <a href="#portfolio" class="hover:text-brand-neonGreen transition-colors">Portfolio</a>
+                <a href="#tracking" class="hover:text-brand-cyan transition-colors">Order Tracking</a>
+                <a href="#testimonials" class="hover:text-brand-purple transition-colors">Reviews</a>
+            </nav>
+
+            <!-- CTA & Actions -->
+            <div class="hidden sm:flex items-center gap-4">
+                <a href="#calculator" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-slate-950 font-bold text-sm hover:opacity-90 transition-all shadow-neon-cyan transform hover:-translate-y-0.5">
+                    Order Custom Work
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-300 hover:bg-slate-800 focus:outline-none" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-b border-brand-border bg-brand-dark/95 px-4 pt-2 pb-6 space-y-3">
+            <a href="#services" class="block py-2 text-slate-300 hover:text-brand-cyan">Services</a>
+            <a href="#calculator" class="block py-2 text-slate-300 hover:text-brand-purple">Pricing Calculator</a>
+            <a href="#portfolio" class="block py-2 text-slate-300 hover:text-brand-neonGreen">Portfolio</a>
+            <a href="#tracking" class="block py-2 text-slate-300 hover:text-brand-cyan">Order Tracking</a>
+            <a href="#testimonials" class="block py-2 text-slate-300 hover:text-brand-purple">Reviews</a>
+            <a href="#calculator" class="block text-center py-3 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-slate-950 font-bold text-sm">
+                Order Custom Work
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+        <!-- Background Ambient Glows -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-cyan/15 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-brand-purple/15 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-slate-700/60 mb-6 text-xs sm:text-sm font-mono text-slate-300">
+                <span class="w-2 h-2 rounded-full bg-brand-neonGreen animate-pulse"></span>
+                <span>Available for New Freelance Commissions & Custom Projects</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight max-w-5xl mx-auto">
+                Elevate Your Content With <br class="hidden sm:inline">
+                <span class="gradient-text">High-Converting Digital Assets</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="mt-6 text-base sm:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                Professional YouTube Thumbnails, Channel Banners, Logos, and Video Editing designed to explode your Click-Through Rate (CTR) and engage viewers.
+            </p>
+
+            <!-- Hero Action Buttons -->
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#calculator" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-cyan via-brand-purple to-brand-neonGreen text-slate-950 font-bold text-base shadow-neon-cyan hover:opacity-90 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-calculator"></i>
+                    Calculate Project Price
+                </a>
+                <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel text-slate-200 font-semibold text-base hover:bg-slate-800/80 hover:border-slate-600 transition-all flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-photo-film text-brand-purple"></i>
+                    Explore Portfolio Showcase
+                </a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="p-4 rounded-2xl glass-panel border border-brand-border">
+                    <div class="text-3xl font-extrabold font-mono text-brand-cyan">500+</div>
+                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Thumbnails Designed</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-panel border border-brand-border">
+                    <div class="text-3xl font-extrabold font-mono text-brand-purple">98.5%</div>
+                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Client Satisfaction</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-panel border border-brand-border">
+                    <div class="text-3xl font-extrabold font-mono text-brand-neonGreen">24-48h</div>
+                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Average Turnaround</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-panel border border-brand-border">
+                    <div class="text-3xl font-extrabold font-mono text-slate-100">10M+</div>
+                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Total Views Generated</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MICRO-SERVICES CATALOG SECTION -->
+    <section id="services" class="py-16 bg-brand-dark/50 border-t border-brand-border relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-mono font-bold text-brand-cyan uppercase tracking-widest mb-2">Micro-Services Catalog</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">Digital Solutions Tailored for Creators</p>
+                <p class="text-slate-400 mt-3 text-sm sm:text-base">Pick a standalone service or bundle them together in our interactive pricing estimator below.</p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service Card 1 -->
+                <div class="p-6 rounded-2xl glass-panel border border-brand-border hover:border-brand-cyan transition-all duration-300 flex flex-col justify-between group hover:shadow-neon-cyan">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 text-brand-cyan flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-image"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">YouTube Thumbnails</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">High CTR, click-worthy visual concepts with custom facial expressions, glowing elements, and bold typography.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> 2D & 3D Layering Effect</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> Color Grading & Glows</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> High-Res JPG/PNG File</li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400">Starting at</span>
+                            <div class="text-xl font-extrabold font-mono text-brand-cyan">$15 <span class="text-xs text-slate-400 font-sans">/ unit</span></div>
+                        </div>
+                        <button onclick="selectServiceForCalc('thumbnail')" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-brand-cyan hover:text-slate-950 font-semibold text-xs transition-colors">
+                            Select
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="p-6 rounded-2xl glass-panel border border-brand-border hover:border-brand-purple transition-all duration-300 flex flex-col justify-between group hover:shadow-neon-purple">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-purple/10 text-brand-purple flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-[#fa-brands fa-youtube] fa-film"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Shorts / Reels Editing</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Fast-paced vertical videos with animated captions, sound effects, meme overlays, and zoom cuts.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> Dynamic Subtitles</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> Sound FX & BGM Sync</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> Up to 60s Duration</li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400">Starting at</span>
+                            <div class="text-xl font-extrabold font-mono text-brand-purple">$25 <span class="text-xs text-slate-400 font-sans">/ video</span></div>
+                        </div>
+                        <button onclick="selectServiceForCalc('video')" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-brand-purple hover:text-slate-950 font-semibold text-xs transition-colors">
+                            Select
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="p-6 rounded-2xl glass-panel border border-brand-border hover:border-brand-neonGreen transition-all duration-300 flex flex-col justify-between group hover:shadow-neon-green">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-neonGreen/10 text-brand-neonGreen flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-[#fa-vector-square] fa-icons"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Channel Branding</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Cohesive channel identity including high-resolution banner art, matching profile avatar, and watermark.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> Desktop + Mobile Optimized</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> Social Media Kit Included</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> Editable Source File (PSD)</li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400">Starting at</span>
+                            <div class="text-xl font-extrabold font-mono text-brand-neonGreen">$40 <span class="text-xs text-slate-400 font-sans">/ pack</span></div>
+                        </div>
+                        <button onclick="selectServiceForCalc('banner')" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-brand-neonGreen hover:text-slate-950 font-semibold text-xs transition-colors">
+                            Select
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="p-6 rounded-2xl glass-panel border border-brand-border hover:border-brand-cyan transition-all duration-300 flex flex-col justify-between group hover:shadow-neon-cyan">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 text-brand-cyan flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-pen-nib"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Esports & Gaming Logos</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Vector-based mascot or modern minimal logotypes for stream channels, esports teams, and digital brands.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> 2 Unique Concepts</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> Transparent PNG + Vector SVG</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neonGreen"></i> Unlimited Minor Tweaks</li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400">Starting at</span>
+                            <div class="text-xl font-extrabold font-mono text-brand-cyan">$50 <span class="text-xs text-slate-400 font-sans">/ logo</span></div>
+                        </div>
+                        <button onclick="selectServiceForCalc('logo')" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-brand-cyan hover:text-slate-950 font-semibold text-xs transition-colors">
+                            Select
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING CALCULATOR & ORDER INQUIRY SECTION -->
+    <section id="calculator" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-mono font-bold text-brand-purple uppercase tracking-widest mb-2">Transparent Pricing</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">Interactive Project Calculator</p>
+                <p class="text-slate-400 mt-3 text-sm sm:text-base">Customize your order deliverables, delivery speed, and extras to get an instant real-time quote.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Calculator Controls Column -->
+                <div class="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-3xl border border-brand-border">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-sliders text-brand-cyan"></i>
+                        Configure Deliverables
+                    </h3>
+
+                    <!-- Service Type Selection -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-slate-300 mb-3">Primary Service Category</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <button type="button" onclick="setCalcCategory('thumbnail')" id="catBtn-thumbnail" class="calc-cat-btn px-3 py-3 rounded-xl border border-brand-cyan bg-brand-cyan/10 text-brand-cyan text-xs font-bold flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-image text-lg"></i>
+                                Thumbnail
+                            </button>
+                            <button type="button" onclick="setCalcCategory('video')" id="catBtn-video" class="calc-cat-btn px-3 py-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 text-xs font-bold flex flex-col items-center gap-2 transition-all hover:border-slate-700">
+                                <i class="fa-solid fa-film text-lg"></i>
+                                Short Video
+                            </button>
+                            <button type="button" onclick="setCalcCategory('banner')" id="catBtn-banner" class="calc-cat-btn px-3 py-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 text-xs font-bold flex flex-col items-center gap-2 transition-all hover:border-slate-700">
+                                <i class="fa-solid fa-compass-drafting text-lg"></i>
+                                Branding
+                            </button>
+                            <button type="button" onclick="setCalcCategory('logo')" id="catBtn-logo" class="calc-cat-btn px-3 py-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 text-xs font-bold flex flex-col items-center gap-2 transition-all hover:border-slate-700">
+                                <i class="fa-solid fa-pen-nib text-lg"></i>
+                                Logo Design
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quantity Slider -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-sm font-semibold text-slate-300">Quantity / Units</label>
+                            <span id="qtyVal" class="text-lg font-mono font-bold text-brand-cyan">1</span>
+                        </div>
+                        <input type="range" id="qtySlider" min="1" max="10" value="1" oninput="updateCalcPrice()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-cyan">
+                        <div class="flex justify-between text-[11px] text-slate-500 mt-1 font-mono">
+                            <span>1 Unit</span>
+                            <span>5 Units</span>
+                            <span>10 Units (Bulk Discount)</span>
+                        </div>
+                    </div>
+
+                    <!-- Turnaround Speed Selector -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-slate-300 mb-3">Delivery Speed</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="cursor-pointer border border-brand-purple bg-brand-purple/10 p-3.5 rounded-xl flex items-center justify-between" id="speedLabel1">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="speed" value="standard" checked onclick="updateCalcPrice()" class="accent-brand-purple">
+                                    <div>
+                                        <div class="text-xs font-bold text-slate-200">Standard Delivery</div>
+                                        <div class="text-[11px] text-slate-400">48-72 Hours</div>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-mono text-slate-400">Free</span>
+                            </label>
+                            <label class="cursor-pointer border border-slate-800 bg-slate-900/60 p-3.5 rounded-xl flex items-center justify-between" id="speedLabel2">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="speed" value="express" onclick="updateCalcPrice()" class="accent-brand-purple">
+                                    <div>
+                                        <div class="text-xs font-bold text-slate-200">Express Priority</div>
+                                        <div class="text-[11px] text-brand-neonGreen font-semibold">Under 24 Hours</div>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-mono text-brand-purple font-bold">+$15</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Add-ons / Extras Checklist -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-slate-300 mb-3">Optional Add-ons & Extras</label>
+                        <div class="space-y-2.5">
+                            <label class="flex items-center justify-between p-3 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900/80 cursor-pointer transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" id="extraSource" onchange="updateCalcPrice()" class="w-4 h-4 rounded accent-brand-cyan">
+                                    <span class="text-xs text-slate-300 font-medium">Include Photoshop/Project Source Files (.PSD/.PRPROJ)</span>
+                                </div>
+                                <span class="text-xs font-mono text-brand-cyan font-bold">+$10</span>
+                            </label>
+                            <label class="flex items-center justify-between p-3 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900/80 cursor-pointer transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" id="extraRevisions" onchange="updateCalcPrice()" class="w-4 h-4 rounded accent-brand-cyan">
+                                    <span class="text-xs text-slate-300 font-medium">VIP Unlimited Revisions Pass</span>
+                                </div>
+                                <span class="text-xs font-mono text-brand-cyan font-bold">+$15</span>
+                            </label>
+                            <label class="flex items-center justify-between p-3 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900/80 cursor-pointer transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" id="extraVariants" onchange="updateCalcPrice()" class="w-4 h-4 rounded accent-brand-cyan">
+                                    <span class="text-xs text-slate-300 font-medium">A/B Testing Alternative Color Variant</span>
+                                </div>
+                                <span class="text-xs font-mono text-brand-cyan font-bold">+$8</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Live Price Summary & Order Form -->
+                <div class="lg:col-span-5 glass-panel p-6 sm:p-8 rounded-3xl border border-brand-border bg-gradient-to-b from-brand-card to-slate-900/90 sticky top-28">
+                    <h3 class="text-xl font-bold mb-4 flex items-center justify-between">
+                        <span>Order Summary</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-brand-neonGreen/10 text-brand-neonGreen border border-brand-neonGreen/20 font-mono">Instant Quote</span>
+                    </h3>
+
+                    <!-- Price Breakdowns -->
+                    <div class="space-y-3 pb-4 border-b border-slate-800 text-sm">
+                        <div class="flex justify-between text-slate-400">
+                            <span>Base Service:</span>
+                            <span id="summaryBase" class="font-mono text-slate-200">$15.00</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Quantity Multiplier:</span>
+                            <span id="summaryQty" class="font-mono text-slate-200">1x</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Add-ons & Extras:</span>
+                            <span id="summaryExtras" class="font-mono text-slate-200">$0.00</span>
+                        </div>
+                        <div id="bulkDiscountRow" class="hidden justify-between text-brand-neonGreen text-xs">
+                            <span>Bulk Order Discount (10%):</span>
+                            <span id="summaryDiscount" class="font-mono">-$0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Total Price Display -->
+                    <div class="py-4 border-b border-slate-800 flex justify-between items-baseline">
+                        <span class="font-bold text-slate-200">Estimated Total:</span>
+                        <div class="text-right">
+                            <span id="calcTotalDisplay" class="text-4xl font-extrabold font-mono gradient-text">$15</span>
+                            <span class="block text-[11px] text-slate-400">USD (No Hidden Fees)</span>
+                        </div>
+                    </div>
+
+                    <!-- Inquiry Form Trigger -->
+                    <form id="orderInquiryForm" onsubmit="handleInquirySubmit(event)" class="mt-6 space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Your Name / Creator Alias</label>
+                            <input type="text" id="clientName" required placeholder="e.g. GamerGuy99" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Email or Discord Tag</label>
+                            <input type="text" id="clientContact" required placeholder="you@email.com or User#1234" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Project Brief / Details (Optional)</label>
+                            <textarea id="clientNotes" rows="2" placeholder="Tell me about your video topic, preferred colors, or ideas..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-slate-950 font-bold text-sm hover:opacity-90 transition-all shadow-neon-cyan flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Submit Inquiry & Reserve Slot
+                        </button>
+                    </form>
+
+                    <!-- Order Confirmation Toast (Hidden by default) -->
+                    <div id="orderSuccessToast" class="hidden mt-4 p-4 rounded-xl bg-brand-neonGreen/10 border border-brand-neonGreen text-brand-neonGreen text-xs leading-relaxed text-center">
+                        <i class="fa-solid fa-circle-check text-lg mb-1 block"></i>
+                        <span class="font-bold">Inquiry Received Successfully!</span><br>
+                        Your Tracking Code is: <strong id="generatedTrackCode" class="font-mono underline text-white">NX-8921</strong>. We will reach out within 2 hours!
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE PORTFOLIO SHOWCASE SECTION -->
+    <section id="portfolio" class="py-20 bg-brand-dark/80 border-t border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <h2 class="text-xs font-mono font-bold text-brand-neonGreen uppercase tracking-widest mb-2">Visual Showcase</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold">Recent Client Projects</p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-2 mt-6 md:mt-0">
+                    <button onclick="filterPortfolio('all')" class="port-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-cyan text-slate-950 transition-all" data-cat="all">All Projects</button>
+                    <button onclick="filterPortfolio('thumbnail')" class="port-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:text-white transition-all" data-cat="thumbnail">Thumbnails</button>
+                    <button onclick="filterPortfolio('video')" class="port-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:text-white transition-all" data-cat="video">Video Shorts</button>
+                    <button onclick="filterPortfolio('banner')" class="port-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:text-white transition-all" data-cat="banner">Banners & Logos</button>
+                </div>
+            </div>
+
+            <!-- Portfolio Cards Grid -->
+            <div id="portfolioGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- SVG/HTML Canvas Visual Item 1 -->
+                <div class="port-item rounded-2xl glass-panel border border-brand-border overflow-hidden group hover:border-brand-cyan transition-all" data-category="thumbnail">
+                    <div class="relative h-52 bg-slate-900 overflow-hidden flex items-center justify-center p-4">
+                        <!-- Custom Vector Graphic for Thumbnail -->
+                        <div class="w-full h-full bg-gradient-to-tr from-purple-900 via-slate-900 to-cyan-900 rounded-lg flex items-center justify-center relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute -right-4 -bottom-4 text-9xl text-cyan-500/10 font-black">VS</span>
+                            <div class="text-center z-10">
+                                <span class="bg-red-600 text-white font-black text-xs px-2 py-1 rounded uppercase tracking-wider mb-2 inline-block">100 DAYS SURVIVAL</span>
+                                <h4 class="text-2xl font-extrabold text-yellow-300 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)] uppercase">I SURVIVED HARDCORE!</h4>
+                            </div>
+                            <div class="absolute left-3 bottom-3 bg-black/80 px-2 py-1 rounded text-[10px] text-brand-cyan font-mono">+1.2M Views</div>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono text-brand-cyan font-semibold">Gaming Thumbnail</span>
+                            <span class="text-xs text-slate-500">CTR: +14.2%</span>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-base">Minecraft Hardcore Challenge Thumbnail</h3>
+                        <p class="text-xs text-slate-400 mt-2">Custom character cutout, high contrast lighting, dynamic glowing text overlay.</p>
+                    </div>
+                </div>
+
+                <!-- SVG/HTML Canvas Visual Item 2 -->
+                <div class="port-item rounded-2xl glass-panel border border-brand-border overflow-hidden group hover:border-brand-purple transition-all" data-category="video">
+                    <div class="relative h-52 bg-slate-900 overflow-hidden flex items-center justify-center p-4">
+                        <!-- Video Editing Reel Visual Mockup -->
+                        <div class="w-40 h-full bg-slate-950 border border-slate-700 rounded-xl relative flex flex-col justify-between p-3 group-hover:scale-105 transition-transform duration-500 shadow-2xl">
+                            <div class="flex justify-between items-center text-[10px] text-slate-400">
+                                <span><i class="fa-solid fa-play text-brand-purple"></i> Shorts</span>
+                                <span class="text-brand-neonGreen font-mono">0:45</span>
+                            </div>
+                            <div class="text-center my-auto">
+                                <span class="bg-brand-purple/30 text-brand-purple text-[10px] font-bold px-2 py-0.5 rounded border border-brand-purple/40">Animated Captions</span>
+                                <p class="text-xs font-bold text-white mt-1">"The Secret to 10x Growth..."</p>
+                            </div>
+                            <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                                <div class="bg-brand-purple h-full w-2/3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono text-brand-purple font-semibold">Shorts / TikTok</span>
+                            <span class="text-xs text-slate-500">Retention: 88%</span>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-base">Podcast Highlights Vertical Reel</h3>
+                        <p class="text-xs text-slate-400 mt-2">Word-by-word colorful caption animation, sound effect triggers, energetic cuts.</p>
+                    </div>
+                </div>
+
+                <!-- SVG/HTML Canvas Visual Item 3 -->
+                <div class="port-item rounded-2xl glass-panel border border-brand-border overflow-hidden group hover:border-brand-neonGreen transition-all" data-category="banner">
+                    <div class="relative h-52 bg-slate-900 overflow-hidden flex items-center justify-center p-4">
+                        <!-- Banner Design Mockup -->
+                        <div class="w-full h-32 bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-950 rounded-xl border border-emerald-500/30 flex items-center justify-between px-6 group-hover:scale-105 transition-transform duration-500">
+                            <div>
+                                <h4 class="text-xl font-black tracking-widest text-white font-mono">APEX<span class="text-brand-neonGreen">GAMING</span></h4>
+                                <p class="text-[10px] text-slate-400">NEW VIDEOS EVERY TUESDAY & FRIDAY</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-brand-neonGreen/20 border border-brand-neonGreen flex items-center justify-center text-brand-neonGreen">
+                                <i class="fa-solid fa-gamepad text-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono text-brand-neonGreen font-semibold">Channel Banner</span>
+                            <span class="text-xs text-slate-500">4K Ultra HD</span>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-base">Apex Gaming Complete Rebrand</h3>
+                        <p class="text-xs text-slate-400 mt-2">Multi-device banner layout tailored for YouTube TV, Desktop, and Mobile displays.</p>
+                    </div>
+                </div>
+
+                <!-- SVG/HTML Canvas Visual Item 4 -->
+                <div class="port-item rounded-2xl glass-panel border border-brand-border overflow-hidden group hover:border-brand-cyan transition-all" data-category="thumbnail">
+                    <div class="relative h-52 bg-slate-900 overflow-hidden flex items-center justify-center p-4">
+                        <div class="w-full h-full bg-gradient-to-tr from-amber-950 via-slate-900 to-slate-950 rounded-lg flex items-center justify-center relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                            <div class="text-center z-10">
+                                <div class="text-4xl text-amber-400 font-extrabold mb-1">$1,000,000</div>
+                                <div class="bg-amber-500 text-slate-950 font-black text-[11px] px-3 py-1 rounded-full uppercase">TECH SETUP TOUR</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono text-brand-cyan font-semibold">Tech / Lifestyle</span>
+                            <span class="text-xs text-slate-500">CTR: +11.8%</span>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-base">Tech Setup Review Thumbnail</h3>
+                        <p class="text-xs text-slate-400 mt-2">Clean minimalist layout focusing on key high-value product highlights.</p>
+                    </div>
+                </div>
+
+                <!-- SVG/HTML Canvas Visual Item 5 -->
+                <div class="port-item rounded-2xl glass-panel border border-brand-border overflow-hidden group hover:border-brand-purple transition-all" data-category="banner">
+                    <div class="relative h-52 bg-slate-900 overflow-hidden flex items-center justify-center p-4">
+                        <div class="w-28 h-28 rounded-2xl bg-gradient-to-br from-brand-purple/20 to-brand-cyan/20 border-2 border-brand-purple flex flex-col items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                            <i class="fa-solid fa-dragon text-4xl text-brand-purple mb-1"></i>
+                            <span class="font-mono text-[10px] font-bold text-slate-300">WYVERN</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono text-brand-purple font-semibold">Vector Mascot Logo</span>
+                            <span class="text-xs text-slate-500">Esports Ready</span>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-base">Wyvern Gaming Mascot Logo</h3>
+                        <p class="text-xs text-slate-400 mt-2">Hand-crafted custom vector logo icon suitable for apparel, stream overlays, and avatars.</p>
+                    </div>
+                </div>
+
+                <!-- SVG/HTML Canvas Visual Item 6 -->
+                <div class="port-item rounded-2xl glass-panel border border-brand-border overflow-hidden group hover:border-brand-neonGreen transition-all" data-category="video">
+                    <div class="relative h-52 bg-slate-900 overflow-hidden flex items-center justify-center p-4">
+                        <div class="w-40 h-full bg-slate-950 border border-slate-700 rounded-xl relative flex flex-col justify-between p-3 group-hover:scale-105 transition-transform duration-500 shadow-2xl">
+                            <div class="flex justify-between items-center text-[10px] text-slate-400">
+                                <span><i class="fa-solid fa-bolt text-brand-neonGreen"></i> Reel</span>
+                                <span class="text-brand-neonGreen font-mono">0:30</span>
+                            </div>
+                            <div class="text-center my-auto">
+                                <span class="bg-brand-neonGreen/30 text-brand-neonGreen text-[10px] font-bold px-2 py-0.5 rounded border border-brand-neonGreen/40">Smooth Transitions</span>
+                                <p class="text-xs font-bold text-white mt-1">Gym Motivation Edit</p>
+                            </div>
+                            <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                                <div class="bg-brand-neonGreen h-full w-4/5"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono text-brand-neonGreen font-semibold">Fitness / Lifestyle</span>
+                            <span class="text-xs text-slate-500">Viral Edit</span>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-base">High-Energy Workout Reel</h3>
+                        <p class="text-xs text-slate-400 mt-2">Fast beat-sync cutting, velocity edit speed ramps, and custom color lookup tables.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ORDER HISTORY & TRACKING SIMULATOR -->
+    <section id="tracking" class="py-16 bg-brand-dark relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel p-6 sm:p-10 rounded-3xl border border-brand-border">
+                <div class="text-center mb-8">
+                    <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 text-brand-cyan flex items-center justify-center text-xl mx-auto mb-3">
+                        <i class="fa-solid fa-magnifying-glass font-mono"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold">Live Order Status Tracker</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-1">Enter your tracking ID (e.g. <span class="font-mono text-brand-cyan">NX-8921</span>, <span class="font-mono text-brand-cyan">NX-1042</span>) to view real-time progress.</p>
+                </div>
+
+                <!-- Input Field -->
+                <div class="flex gap-2 max-w-md mx-auto mb-8">
+                    <input type="text" id="trackInput" placeholder="Enter Order ID (e.g., NX-8921)" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 font-mono focus:outline-none focus:border-brand-cyan transition-colors uppercase">
+                    <button onclick="trackOrder()" class="px-6 py-3 bg-brand-cyan text-slate-950 font-bold text-sm rounded-xl hover:opacity-90 transition-opacity">
+                        Track
+                    </button>
+                </div>
+
+                <!-- Status Progress Card Container -->
+                <div id="trackResultContainer" class="hidden border border-slate-800 rounded-2xl p-6 bg-slate-950/60">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-slate-800 pb-4 mb-6 gap-2">
+                        <div>
+                            <span class="text-xs text-slate-400">Order Reference:</span>
+                            <div class="text-lg font-mono font-bold text-brand-cyan" id="trackResultId">NX-8921</div>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400">Service:</span>
+                            <div class="text-sm font-bold text-slate-200" id="trackResultService">YouTube Thumbnail Design</div>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400">Estimated Delivery:</span>
+                            <div class="text-sm font-bold text-brand-neonGreen font-mono" id="trackResultEta">Tomorrow at 6:00 PM</div>
+                        </div>
+                    </div>
+
+                    <!-- Step Tracker Bar -->
+                    <div class="grid grid-cols-4 gap-2 text-center text-xs">
+                        <div id="step1" class="space-y-2">
+                            <div class="w-8 h-8 rounded-full bg-brand-neonGreen text-slate-950 flex items-center justify-center font-bold mx-auto">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-slate-300 font-medium block text-[11px]">Inquiry Received</span>
+                        </div>
+                        <div id="step2" class="space-y-2">
+                            <div class="w-8 h-8 rounded-full bg-brand-cyan text-slate-950 flex items-center justify-center font-bold mx-auto animate-pulse">
+                                <i class="fa-solid fa-pen-ruler"></i>
+                            </div>
+                            <span class="text-brand-cyan font-bold block text-[11px]">Designing</span>
+                        </div>
+                        <div id="step3" class="space-y-2 opacity-40">
+                            <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center font-bold mx-auto">
+                                3
+                            </div>
+                            <span class="text-slate-400 block text-[11px]">Client Review</span>
+                        </div>
+                        <div id="step4" class="space-y-2 opacity-40">
+                            <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center font-bold mx-auto">
+                                4
+                            </div>
+                            <span class="text-slate-400 block text-[11px]">Final Assets Sent</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS & REVIEWS SECTION -->
+    <section id="testimonials" class="py-20 bg-brand-dark/50 border-t border-brand-border relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-mono font-bold text-brand-cyan uppercase tracking-widest mb-2">Social Proof</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">What Other Creators Say</p>
+            </div>
+
+            <!-- Reviews Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Review Card 1 -->
+                <div class="p-6 rounded-2xl glass-panel border border-brand-border flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 text-sm gap-1 mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm italic leading-relaxed">
+                            "The thumbnail increased my average CTR from 4.2% to nearly 11% on my gaming channel! Delivered in less than 24 hours. Will definitely be a long-term customer."
+                        </p>
+                    </div>
+                    <div class="mt-6 flex items-center gap-3 pt-4 border-t border-slate-800">
+                        <div class="w-10 h-10 rounded-full bg-brand-cyan/20 border border-brand-cyan flex items-center justify-center font-bold text-brand-cyan">
+                            A
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-slate-100">Alex_Playz</div>
+                            <div class="text-xs text-slate-400">145K YouTube Subscribers</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 2 -->
+                <div class="p-6 rounded-2xl glass-panel border border-brand-border flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 text-sm gap-1 mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm italic leading-relaxed">
+                            "Edited 5 YouTube Shorts for my tech podcast. The subtitle animations and sound effects were top notch. Saved me hours of tedious work!"
+                        </p>
+                    </div>
+                    <div class="mt-6 flex items-center gap-3 pt-4 border-t border-slate-800">
+                        <div class="w-10 h-10 rounded-full bg-brand-purple/20 border border-brand-purple flex items-center justify-center font-bold text-brand-purple">
+                            S
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-slate-100">Sarah Tech Talks</div>
+                            <div class="text-xs text-slate-400">Tech Content Creator</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 3 -->
+                <div class="p-6 rounded-2xl glass-panel border border-brand-border flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 text-sm gap-1 mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm italic leading-relaxed">
+                            "Super responsive communication and incredible attention to detail. Designed my full Twitch banner and mascot logo set. Couldn't be happier."
+                        </p>
+                    </div>
+                    <div class="mt-6 flex items-center gap-3 pt-4 border-t border-slate-800">
+                        <div class="w-10 h-10 rounded-full bg-brand-neonGreen/20 border border-brand-neonGreen flex items-center justify-center font-bold text-brand-neonGreen">
+                            M
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-slate-100">MikeV_Streams</div>
+                            <div class="text-xs text-slate-400">Twitch Partner</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 border-t border-brand-border py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                
+                <!-- Brand Info -->
+                <div class="text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-brand-cyan to-brand-purple flex items-center justify-center text-slate-950 font-black text-sm">
+                            N
+                        </div>
+                        <span class="text-lg font-extrabold tracking-wider font-mono">NEX<span class="gradient-text">CRAFT</span></span>
+                    </div>
+                    <p class="text-xs text-slate-400">High-Impact Micro-Services for Digital Creators & Channels.</p>
+                </div>
+
+                <!-- Social Links -->
+                <div class="flex items-center gap-4 text-slate-400">
+                    <a href="#" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center hover:text-brand-cyan hover:border-brand-cyan transition-colors" aria-label="YouTube">
+                        <i class="fa-brands fa-youtube text-lg"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center hover:text-brand-purple hover:border-brand-purple transition-colors" aria-label="Twitter">
+                        <i class="fa-brands fa-x-twitter text-lg"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center hover:text-brand-neonGreen hover:border-brand-neonGreen transition-colors" aria-label="Discord">
+                        <i class="fa-brands fa-discord text-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-slate-900 text-center text-xs text-slate-500 font-mono">
+                &copy; <span id="currentYear"></span> NexCraft Digital Studio. All rights reserved. Built for Freelancers.
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // --- 1. Pricing Calculator State & Rates ---
+        const serviceRates = {
+            thumbnail: { base: 15, name: 'YouTube Thumbnail' },
+            video: { base: 25, name: 'Shorts Video Edit' },
+            banner: { base: 40, name: 'Channel Branding' },
+            logo: { base: 50, name: 'Esports Mascot Logo' }
+        };
+
+        let currentCategory = 'thumbnail';
+
+        function setCalcCategory(cat) {
+            currentCategory = cat;
+            
+            // Highlight active button
+            document.querySelectorAll('.calc-cat-btn').forEach(btn => {
+                btn.classList.remove('border-brand-cyan', 'bg-brand-cyan/10', 'text-brand-cyan');
+                btn.classList.add('border-slate-800', 'bg-slate-900/60', 'text-slate-400');
+            });
+
+            const activeBtn = document.getElementById(`catBtn-${cat}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('border-slate-800', 'bg-slate-900/60', 'text-slate-400');
+                activeBtn.classList.add('border-brand-cyan', 'bg-brand-cyan/10', 'text-brand-cyan');
+            }
+
+            updateCalcPrice();
+        }
+
+        function selectServiceForCalc(cat) {
+            setCalcCategory(cat);
+            const calcSection = document.getElementById('calculator');
+            if (calcSection) {
+                calcSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function updateCalcPrice() {
+            const qty = parseInt(document.getElementById('qtySlider').value) || 1;
+            document.getElementById('qtyVal').innerText = qty;
+
+            const baseRate = serviceRates[currentCategory].base;
+            let subtotal = baseRate * qty;
+
+            // Extras
+            let extrasTotal = 0;
+            if (document.getElementById('extraSource').checked) extrasTotal += 10;
+            if (document.getElementById('extraRevisions').checked) extrasTotal += 15;
+            if (document.getElementById('extraVariants').checked) extrasTotal += 8;
+
+            // Delivery speed option
+            const isExpress = document.querySelector('input[name="speed"]:checked').value === 'express';
+            if (isExpress) extrasTotal += 15;
+
+            // Bulk discount (10% if quantity >= 5)
+            let discount = 0;
+            const discountRow = document.getElementById('bulkDiscountRow');
+            if (qty >= 5) {
+                discount = (subtotal + extrasTotal) * 0.10;
+                discountRow.classList.remove('hidden');
+                discountRow.classList.add('flex');
+                document.getElementById('summaryDiscount').innerText = `-$${discount.toFixed(2)}`;
+            } else {
+                discountRow.classList.remove('flex');
+                discountRow.classList.add('hidden');
+            }
+
+            const grandTotal = Math.max(0, subtotal + extrasTotal - discount);
+
+            // Update UI Summary Breakdown
+            document.getElementById('summaryBase').innerText = `$${baseRate.toFixed(2)}`;
+            document.getElementById('summaryQty').innerText = `${qty}x`;
+            document.getElementById('summaryExtras').innerText = `$${extrasTotal.toFixed(2)}`;
+            document.getElementById('calcTotalDisplay').innerText = `$${Math.round(grandTotal)}`;
+        }
+
+        // --- 2. Inquiry Form Submission Handler ---
+        function handleInquirySubmit(e) {
+            e.preventDefault();
+            
+            // Generate Random Tracking Code
+            const randomCode = 'NX-' + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('generatedTrackCode').innerText = randomCode;
+
+            // Show Toast
+            const toast = document.getElementById('orderSuccessToast');
+            toast.classList.remove('hidden');
+
+            // Scroll down slightly to make toast visible
+            toast.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // --- 3. Portfolio Category Filtering ---
+        function filterPortfolio(category) {
+            const items = document.querySelectorAll('.port-item');
+            const filterBtns = document.querySelectorAll('.port-filter-btn');
+
+            // Update Filter Button Styles
+            filterBtns.forEach(btn => {
+                if (btn.getAttribute('data-cat') === category) {
+                    btn.classList.remove('bg-slate-800', 'text-slate-300');
+                    btn.classList.add('bg-brand-cyan', 'text-slate-950');
+                } else {
+                    btn.classList.remove('bg-brand-cyan', 'text-slate-950');
+                    btn.classList.add('bg-slate-800', 'text-slate-300');
+                }
+            });
+
+            // Show/Hide Portfolio Cards
+            items.forEach(item => {
+                const itemCat = item.getAttribute('data-category');
+                if (category === 'all' || itemCat === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // --- 4. Live Order Status Tracker Simulator ---
+        function trackOrder() {
+            const code = document.getElementById('trackInput').value.trim().toUpperCase();
+            const container = document.getElementById('trackResultContainer');
+
+            if (!code) {
+                alert('Please enter an Order Tracking Code (e.g., NX-8921)');
+                return;
+            }
+
+            container.classList.remove('hidden');
+            document.getElementById('trackResultId').innerText = code;
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // --- 5. Mobile Navigation Toggle ---
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Set Current Year in Footer
+        document.getElementById('currentYear').innerText = new Date().getFullYear();
+
+        // Initial Calculation Run
+        updateCalcPrice();
+    </script>
+</body>
+</html>
